@@ -1,3 +1,10 @@
 @import "bootstrap/scss/functions";   //加入自定義函式
 @import "./variables.scss";           //匯入第六步的變數檔
 @import "bootstrap/scss/bootstrap";   //加入自定義的bootstrap
+
+
+@media (min-width: 991px) {
+    .w-lg-100 {
+      width: 100% !important;
+    }
+  }
