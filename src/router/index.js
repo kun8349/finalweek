@@ -52,6 +52,39 @@ const routes = [
         component: () => import('../views/front/BlogsDetail.vue')
       }
     ]
+  },
+  // 後台路由
+  {
+    path: '/login',
+    name: '後台登入',
+    component: () => import('../views/admin/LoginAdmin.vue')
+  },
+  {
+    path: '/admin',
+    name: '後台路由',
+    component: () => import('../views/AdminLayout.vue'),
+    children: [
+      {
+        path: 'coupon',
+        name: '後台優惠券',
+        component: () => import('../views/admin/CouponAdmin.vue')
+      },
+      {
+        path: 'order',
+        name: '後台訂單',
+        component: () => import('../views/admin/OrderAdmin.vue')
+      },
+      {
+        path: 'product',
+        name: '後台產品列表',
+        component: () => import('../views/admin/ProductAdmin.vue')
+      },
+      {
+        path: 'blogs',
+        name: '後台產品列表',
+        component: () => import('../views/admin/BlogAdmin.vue')
+      }
+    ]
   }
 ]
 

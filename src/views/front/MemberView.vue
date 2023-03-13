@@ -2,7 +2,14 @@
     <div class="container">
         <div class="login-wrapper">
             <form class="form-floating">
-                <h2 class="text-center mb-6">logo</h2>
+                <div class="text-center">
+                    <img
+                        src="../../assets/logo-removebg-preview.png"
+                        alt="logo"
+                        class="img-fluid"
+                        style="width: 100px;"
+                    >
+                </div>
                 <h3 class="mb-3 text-center">會員登入</h3>
                 <div class="form-floating mb-3">
                     <input type="email" class="form-control w-100" id="floatingInput" placeholder="name@example.com">

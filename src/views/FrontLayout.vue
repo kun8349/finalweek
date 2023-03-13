@@ -7,22 +7,39 @@
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="p-0 me-0 me-lg-2">
-            <a class="navbar-brand" href="#">Logo</a>
+            <a class="navbar-brand" href="#/">
+              <img src="../assets/logo-removebg-preview.png" alt="logo" class="img-fluid" style="width: 100px;">
+            </a>
           </div>
           <div class="collapse navbar-collapse ms-auto d-none" id="navbarSupportedContent">
             <ul class="navbar-nav mb-2 mb-lg-0">
               <li class="nav-item">
-                <router-link class="nav-link text-white nav-hover fs-4 me-2" to="/">
+                <router-link
+                  class="nav-link text-white nav-hover fs-4 me-2"
+                  to="/"
+                  :class="{'nav-link-active': this.changeColor === '首頁'}"
+                  @click="()=>toggleColor('首頁')"
+                >
                     <span>首頁</span>
                 </router-link>
               </li>
               <li class="nav-item">
-                <router-link class="nav-link text-white nav-hover fs-4 me-2" to="/product">
+                <router-link
+                  class="nav-link text-white nav-hover fs-4 me-2"
+                  to="/product"
+                  :class="{'nav-link-active': this.changeColor === '所有商品'}"
+                  @click="()=>toggleColor('所有商品')"
+                >
                     <span>所有商品</span>
                 </router-link>
               </li>
               <li class="nav-item">
-                <router-link class="nav-link text-white nav-hover fs-4 me-2" to="/blogs">
+                <router-link
+                  class="nav-link text-white nav-hover fs-4 me-2"
+                  to="/blogs"
+                  :class="{'nav-link-active': this.changeColor === '部落格'}"
+                  @click="()=>toggleColor('部落格')"
+                >
                     <span>部落格</span>
                 </router-link>
               </li>
@@ -30,12 +47,22 @@
           </div>
           <div class="d-flex align-items-center">
             <router-link to="/member" class="me-3">
-              <span class="material-symbols-outlined text-white icon-hover me-4" style="font-size: 35px;">
+              <span
+                class="material-symbols-outlined text-white icon-hover me-4"
+                style="font-size: 35px;"
+                :class="{'icon-active': this.changeColor === '會員'}"
+                @click="()=>toggleColor('會員')"
+              >
                 person
               </span>
             </router-link>
             <router-link to="/cart" class="">
-              <span class="material-symbols-outlined text-white icon-hover position-relative" style="font-size: 35px;">
+              <span
+                class="material-symbols-outlined text-white icon-hover position-relative"
+                style="font-size: 35px;"
+                :class="{'icon-active': this.changeColor === '購物車'}"
+                @click="()=>toggleColor('購物車')"
+              >
                 shopping_cart
               </span>
               <span
@@ -92,13 +119,17 @@ import cartStore from '../stores/cart'
 export default {
   data () {
     return {
+      changeColor: '首頁'
     }
   },
   computed: {
     ...mapState(cartStore, ['cart'])
   },
   methods: {
-    ...mapActions(cartStore, ['getToCart'])
+    ...mapActions(cartStore, ['getToCart']),
+    toggleColor (page) {
+      this.changeColor = page
+    }
   },
   mounted () {
     this.getToCart()
@@ -113,7 +144,15 @@ export default {
   padding-bottom: 5px;
   border-bottom: 5px solid #ffff;
 }
+.nav-link-active > span {
+  padding-bottom: 5px;
+  border-bottom: 5px solid #ffff;
+}
 .icon-hover:hover{
+  text-decoration: underline 5px !important;
+  text-underline-offset: 5px;
+}
+.icon-active{
   text-decoration: underline 5px !important;
   text-underline-offset: 5px;
 }
@@ -125,6 +164,10 @@ export default {
   color:white !important;
   text-decoration:underline !important;
   text-underline-offset:5px;
+}
+.selected {
+  padding-bottom: 5px;
+  border-bottom: 5px solid #ffff;
 }
 
 </style>
