@@ -77,7 +77,7 @@
 import ArticleModal from '@/components/ArticleModal.vue'
 import DelModal from '@/components/DelModal.vue'
 import Pagination from '@/components/PaginationView.vue'
-// import Swal from 'sweetalert2'
+import Swal from 'sweetalert2'
 const { VITE_URL, VITE_PATH } = import.meta.env
 
 export default {
@@ -108,7 +108,15 @@ export default {
             this.pages = response.data.pagination
           }
         }).catch(() => {
-        // axios 的錯誤狀態，可參考：https://github.com/axios/axios#handling-errors
+          this.isLoading = false
+          Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: '資料取得失敗(｡◕∀◕｡)',
+            showConfirmButton: false,
+            timer: 1000,
+            toast: true
+          })
         })
     },
     getArticle (id) {
@@ -121,7 +129,15 @@ export default {
             this.isNew = false
           }
         }).catch(() => {
-        // axios 的錯誤狀態，可參考：https://github.com/axios/axios#handling-errors
+          this.isLoading = false
+          Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: 'ID取得失敗(｡◕∀◕｡)',
+            showConfirmButton: false,
+            timer: 1000,
+            toast: true
+          })
         })
     },
     openModal (isNew, item) {
@@ -143,11 +159,15 @@ export default {
       let api = `${VITE_URL}/api/${VITE_PATH}/admin/article`
       let httpMethod = 'post'
       let status = '新增貼文'
+      let title = '新增部落格成功d(`･∀･)b'
+      let delTitle = '新增部落格失敗(｡◕∀◕｡)'
       this.isLoading = true
       if (!this.isNew) {
         api = `${VITE_URL}/api/${VITE_PATH}/admin/article/${this.tempArticle.id}`
         httpMethod = 'put'
         status = '更新貼文'
+        title = '修改部落格成功d(`･∀･)b'
+        delTitle = '修改部落格失敗(｡◕∀◕｡)'
       }
       const articleComponent = this.$refs.articleModal
       this.$http[httpMethod](api, { data: this.tempArticle })
@@ -156,8 +176,24 @@ export default {
           this.$httpMessageState(response, status)
           articleComponent.hideModal()
           this.getArticles(this.currentPage)
+          Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title,
+            showConfirmButton: false,
+            timer: 1500,
+            toast: true
+          })
         })
         .catch(() => {
+          Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: delTitle,
+            showConfirmButton: false,
+            timer: 1000,
+            toast: true
+          })
         })
     },
     openDelArticleModal (item) {
@@ -173,8 +209,25 @@ export default {
           const delComponent = this.$refs.delModal
           delComponent.hideModal()
           this.getArticles(this.currentPage)
+          Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: '刪除部落格成功d(`･∀･)b',
+            showConfirmButton: false,
+            timer: 1500,
+            toast: true
+          })
         })
         .catch(() => {
+          this.isLoading = false
+          Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: '刪除部落格失敗(｡◕∀◕｡)',
+            showConfirmButton: false,
+            timer: 1000,
+            toast: true
+          })
         })
     }
   },

@@ -15,8 +15,11 @@
     <div class="container">
         <div class="row justify-content-center mb-20">
             <div class="col-lg-8">
-                <h2 class="mt-12">{{ data.title }}</h2>
-                <span class="text-textSecondary">作者:{{ data.author }}</span>
+                <div class="mb-12">
+                  <h2 class="mt-12">{{ data.title }}</h2>
+                  <span class="text-textSecondary">作者:{{ data.author }}</span>
+                </div>
+                <img :src="data.imageUrl" alt="部落格圖" style="width: 100%;">
                 <p class="mt-12" v-html="data.content"></p>
             </div>
         </div>
@@ -39,6 +42,7 @@ export default {
       this.$http.get(`${VITE_URL}api/${VITE_PATH}/article/${this.$route.params.id}`)
         .then(res => {
           this.data = res.data.article
+          console.log(this.data)
           this.isLoading = false
         })
         .catch(() => {

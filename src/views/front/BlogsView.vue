@@ -39,9 +39,9 @@
                 </div>
             </div>
         </div>
-        <div class="d-flex justify-content-center">
-            <Pagination :pages="pages" @emit-pages="getBlogs"></Pagination>
-        </div>
+    </div>
+    <div class="d-flex justify-content-center">
+        <Pagination :pages="pages" @emit-pages="getBlogs"></Pagination>
     </div>
 </template>
 

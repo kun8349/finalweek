@@ -93,7 +93,7 @@
                                   alt="貓咪產品"
                               >
                               <div class="overlay d-flex justify-content-center">
-                                  <p class="mb-0 text-white m-0 p-2 w-100 fs-3 d-flex justify-content-center opacity-75"
+                                  <p class="mb-0 text-white m-0 p-2 w-100 fs-3 d-flex justify-content-center"
                                   >
                                       查看更多
                                   </p>

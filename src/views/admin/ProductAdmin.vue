@@ -102,7 +102,7 @@ export default {
         .catch(() => {
           Swal.fire({
             icon: 'error',
-            title: '資料取得失敗,請重新登入',
+            title: '資料取得失敗,請重新登入٩(ŏ﹏ŏ、)۶',
             showConfirmButton: false,
             timer: 1000
           })
@@ -127,41 +127,37 @@ export default {
     },
     updateProduct (item) {
       this.tempProduct = item
+      this.isLoading = true
       let url = `${VITE_URL}/api/${VITE_PATH}/admin/product`
       let http = 'post'
+      let title = '新增產品成功d(`･∀･)b'
+      let delTitle = '新增產品失敗٩(ŏ﹏ŏ、)۶'
       if (!this.isNew) {
         url = `${VITE_URL}/api/${VITE_PATH}/admin/product/${this.tempProduct.id}`
         http = 'put'
+        title = '修改產品成功d(`･∀･)b'
+        delTitle = '修改產品失敗٩(ŏ﹏ŏ、)۶'
       }
       this.$http[http](url, { data: this.tempProduct })
         .then((response) => {
-          if (http === 'post') {
-            Swal.fire({
-              position: 'top-end',
-              icon: 'success',
-              title: '產品建立成功d(`･∀･)b',
-              showConfirmButton: false,
-              timer: 1500,
-              toast: true
-            })
-          } else {
-            Swal.fire({
-              position: 'top-end',
-              icon: 'success',
-              title: '產品更新成功d(`･∀･)b',
-              showConfirmButton: false,
-              timer: 1500,
-              toast: true
-            })
-          }
           const productComponent = this.$refs.productModal
           productComponent.hideModal()
           this.getProducts()
+          this.isLoading = false
+          Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title,
+            showConfirmButton: false,
+            timer: 1500,
+            toast: true
+          })
         })
         .catch(() => {
+          this.isLoading = false
           Swal.fire({
             icon: 'success',
-            title: '處理失敗٩(ŏ﹏ŏ、)۶',
+            title: delTitle,
             showConfirmButton: false,
             timer: 1500
           })
@@ -173,11 +169,13 @@ export default {
       delComponent.openModal()
     },
     delProduct () {
+      this.isLoading = true
       this.$http.delete(`${VITE_URL}api/${VITE_PATH}/admin/product/${this.tempProduct.id}`)
         .then(() => {
           const delComponent = this.$refs.delModal
           delComponent.hideModal()
           this.getProducts(this.currentPage)
+          this.isLoading = false
           Swal.fire({
             position: 'top-end',
             icon: 'success',
@@ -188,6 +186,7 @@ export default {
           })
         })
         .catch(() => {
+          this.isLoading = false
           Swal.fire({
             icon: 'success',
             title: '刪除單一品項失敗٩(ŏ﹏ŏ、)۶',

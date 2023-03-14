@@ -65,7 +65,7 @@
                                         </tr>
                                         <tr>
                                             <td class="pb-5">訂單金額</td>
-                                            <td class="pb-5">{{ OrderData.total }}</td>
+                                            <td class="pb-5">{{ orderPrice }}</td>
                                         </tr>
                                         <tr class="">
                                             <td class="pb-5">付款狀態</td>
@@ -84,7 +84,9 @@
                             >
                                 確認付款
                             </button>
-                            <router-link v-else to="/" class="fs-5">返回首頁</router-link>
+                            <div v-else class="py-8">
+                              <router-link to="/" class="fs-5">返回首頁</router-link>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -94,7 +96,9 @@
 </template>
 
 <script>
+import { mapState } from 'pinia'
 import Swal from 'sweetalert2'
+import cartStore from '../../stores/cart'
 const { VITE_URL, VITE_PATH } = import.meta.env
 export default {
   data () {
@@ -114,14 +118,30 @@ export default {
         })
     },
     changeStatus () {
-      this.is_paid = true
-      Swal.fire({
-        icon: 'success',
-        title: '付款成功',
-        showConfirmButton: false,
-        timer: 1000
-      })
+      this.isLoading = true
+      this.$http.post(`${VITE_URL}api/${VITE_PATH}/pay/${this.$route.params.id}`)
+        .then(res => {
+          this.is_paid = true
+          this.isLoading = false
+          Swal.fire({
+            icon: 'success',
+            title: '付款成功',
+            showConfirmButton: false,
+            timer: 1000
+          })
+        })
+        .catch(() => {
+          Swal.fire({
+            icon: 'success',
+            title: '付款失敗',
+            showConfirmButton: false,
+            timer: 1000
+          })
+        })
     }
+  },
+  computed: {
+    ...mapState(cartStore, ['orderPrice'])
   },
   mounted () {
     this.getOrder()

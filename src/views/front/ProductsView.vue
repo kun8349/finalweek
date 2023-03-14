@@ -288,6 +288,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.my-toast {
+  font-size: 5px;
+  max-width: 500px;
+  max-height: 500px;
+}
 .overlay {
   position: absolute;
   top: 0;

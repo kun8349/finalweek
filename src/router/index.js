@@ -65,6 +65,11 @@ const routes = [
     component: () => import('../views/AdminLayout.vue'),
     children: [
       {
+        path: 'product',
+        name: '後台產品列表',
+        component: () => import('../views/admin/ProductAdmin.vue')
+      },
+      {
         path: 'coupon',
         name: '後台優惠券',
         component: () => import('../views/admin/CouponAdmin.vue')
@@ -73,11 +78,6 @@ const routes = [
         path: 'order',
         name: '後台訂單',
         component: () => import('../views/admin/OrderAdmin.vue')
-      },
-      {
-        path: 'product',
-        name: '後台產品列表',
-        component: () => import('../views/admin/ProductAdmin.vue')
       },
       {
         path: 'blogs',

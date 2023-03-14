@@ -24,15 +24,16 @@
                 <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="33.3" aria-valuemin="0" aria-valuemax="100" style="width: 1%"></div>
             </div>
         </div>
-        <div class="border border-secondary mt-15 mb-30">
+        <div class="border border-secondary mt-15 mb-15">
             <div class="w-100 bg-secondary p-4">
                 <p class="mb-0">購物車</p>
             </div>
             <div class="p-4 pb-30">
+              <template v-if="cart.length !== 0">
                 <table class="table align-middle mb-0">
                     <thead>
                         <tr>
-                            <th width="50px"></th>
+                            <th width="50px" class="text-center">刪除</th>
                             <th scope="col" class="text-center">品名</th>
                             <th scope="col" width="100px">單價</th>
                             <th scope="col" width="220px"  class="text-center">數量</th>
@@ -40,16 +41,17 @@
                         </tr>
                     </thead>
                     <tbody class="">
-                      <template v-if="cartList.length !== 0">
-                        <tr v-for="cartProduct in cartList" :key="cartProduct.id">
+                        <tr v-for="cartProduct in cart" :key="cartProduct.id">
                             <td>
                                 <button
                                     type="button"
-                                    class="btn btn-outline-danger btn-sm"
+                                    class="btn btn-sm btn-outline-danger d-flex justify-content-center align-items-center"
                                     @click="() => deleteSingle(cartProduct)"
                                     :disabled="loadingItem === cartProduct.id"
                                 >
-                                X
+                                  <span class="material-symbols-outlined">
+                                    delete
+                                  </span>
                                 </button>
                             </td>
                             <td class="text-center">
@@ -78,48 +80,94 @@
                             </td>
                         </tr>
                         <tr>
+                            <td>
+                            </td>
                             <td></td>
                             <td></td>
                             <td></td>
-                            <td></td>
-                            <td class="fs-5 text-end fw-bold">
+                            <td class="fs-5 text-end">
                                 總計：
                                 ${{ total.toLocaleString() }}
                             </td>
                         </tr>
-                      </template>
-                      <template v-else>
-                        <tr>
-                            <td>
-                            </td>
-                            <td class="text-secondary text-end">
-                                <h3 class="mt-3">購物車目前沒東西~</h3>
-                            </td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                      </template>
+                        <div class="mt-3">
+                          <button type="button" class="btn btn-outline-primary" style="width: 100px;">
+                            繼續購物
+                          </button>
+                        </div>
                     </tbody>
                 </table>
-                <div class="text-end mt-10">
-                    <button @click="returnRouter" type="button" class="btn btn-primary btn-lg">確認訂單</button>
+              </template>
+              <template v-else>
+                <div class="text-center py-6">
+                  <h2 class="pb-5">購物車目前沒有商品</h2>
+                  <button
+                    type="button"
+                    class="btn btn-primary btn-lg"
+                    @click="()=>returnRouterHome()"
+                  >
+                    前往選購
+                  </button>
                 </div>
+              </template>
+              <div class="mt-10 d-flex align-items-end justify-content-between">
+                  <div class="d-flex flex-column justify-content-between">
+                    <div class="d-flex mt-10">
+                      <label
+                      for="exampleFormControlInput1"
+                      class="form-label"
+                    >
+                    </label>
+                    <input
+                      type="text"
+                      class="form-control me-2"
+                      id="exampleFormControlInput1"
+                      style="width: 100px;"
+                      v-model="code"
+                    >
+                    <button
+                      type="button"
+                      class="btn btn-outline-primary"
+                      @click="()=>getCoupon(code)"
+                    >
+                      優惠碼
+                    </button>
+                    </div>
+                  </div>
+                  <div class="text-end">
+                      <p class="fs-4 text-success mb-5">
+                        折扣：$
+                        <span v-if="couponPrice != 0">{{ couponPrice }}</span>
+                        <span v-else>0</span>
+                      </p>
+                      <p class="fs-4 text-end fw-bold mb-5">
+                        訂單總金額：$
+                        <span>{{ (total-couponPrice).toLocaleString() }}</span>
+                      </p>
+                    <button
+                      @click="()=>returnRouter()"
+                      type="button"
+                      class="btn btn-primary btn-lg"
+                      :disabled="cart.length === 0"
+                    >
+                    確認結帳
+                  </button>
+                  </div>
+              </div>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+import { mapActions, mapState } from 'pinia'
 import Swal from 'sweetalert2'
+import cartStore from '../../stores/cart'
 const { VITE_URL, VITE_PATH } = import.meta.env
 export default {
   data () {
     return {
-      cartList: {},
-      isLoading: true,
-      loadingItem: '',
-      total: 0,
+      isLoading: false,
       data: {
         user: {
           name: '',
@@ -128,51 +176,52 @@ export default {
           address: ''
         },
         message: ''
-      }
+      },
+      code: ''
     }
   },
   methods: {
-    getCart () {
-      this.isLoading = true
-      this.$http.get(`${VITE_URL}api/${VITE_PATH}/cart`)
-        .then(res => {
-          this.cartList = res.data.data.carts
-          this.total = res.data.data.total
-          this.isLoading = false
-        })
-        .catch(() => {
-          Swal.fire({
-            icon: 'error',
-            title: '取得購物車資料失敗٩(ŏ﹏ŏ、)۶',
-            showConfirmButton: false,
-            timer: 1500
-          })
-        })
-    },
-    deleteSingle (product) {
-      this.loadingItem = product.id
-      this.$http.delete(`${VITE_URL}api/${VITE_PATH}/cart/${product.id}`)
-        .then(res => {
-          Swal.fire({
-            position: 'top-end',
-            icon: 'success',
-            title: '成功刪除單一產品d(`･∀･)b',
-            showConfirmButton: false,
-            timer: 1500,
-            toast: true
-          })
-          this.getCart()
-          this.loadingItem = ''
-        })
-        .catch(() => {
-          Swal.fire({
-            icon: 'error',
-            title: '刪除單一品項失敗٩(ŏ﹏ŏ、)۶',
-            showConfirmButton: false,
-            timer: 1500
-          })
-        })
-    },
+    // getToCart () {
+    //   this.isLoading = true
+    //   this.$http.get(`${VITE_URL}api/${VITE_PATH}/cart`)
+    //     .then(res => {
+    //       this.cart = res.data.data.carts
+    //       this.total = res.data.data.total
+    //       this.isLoading = false
+    //     })
+    //     .catch(() => {
+    //       Swal.fire({
+    //         icon: 'error',
+    //         title: '取得購物車資料失敗٩(ŏ﹏ŏ、)۶',
+    //         showConfirmButton: false,
+    //         timer: 1500
+    //       })
+    //     })
+    // },
+    // deleteSingle (product) {
+    //   this.loadingItem = product.id
+    //   this.$http.delete(`${VITE_URL}api/${VITE_PATH}/cart/${product.id}`)
+    //     .then(res => {
+    //       Swal.fire({
+    //         position: 'top-end',
+    //         icon: 'success',
+    //         title: '成功刪除單一產品d(`･∀･)b',
+    //         showConfirmButton: false,
+    //         timer: 1500,
+    //         toast: true
+    //       })
+    //       this.getToCart()
+    //       this.loadingItem = ''
+    //     })
+    //     .catch(() => {
+    //       Swal.fire({
+    //         icon: 'error',
+    //         title: '刪除單一品項失敗٩(ŏ﹏ŏ、)۶',
+    //         showConfirmButton: false,
+    //         timer: 1500
+    //       })
+    //     })
+    // },
     editNum (product) {
       const data = {
         product_id: product.id,
@@ -187,9 +236,12 @@ export default {
             title: '成功修改數量',
             showConfirmButton: false,
             timer: 1500,
-            toast: true
+            toast: true,
+            customClass: {
+              container: 'swal2-container'
+            }
           })
-          this.getCart()
+          this.getToCart()
           this.loadingItem = ''
         })
         .catch(() => {
@@ -203,15 +255,27 @@ export default {
     },
     returnRouter () {
       this.$router.push('/order')
-    }
+    },
+    returnRouterHome () {
+      this.$router.push('/')
+      window.scrollTo(0, 0)
+    },
+    ...mapActions(cartStore, ['deleteSingle', 'getToCart', 'getCoupon'])
+  },
+  computed: {
+    ...mapState(cartStore, ['cart', 'loadingItem', 'total', 'couponPrice'])
   },
   mounted () {
-    this.getCart()
+    this.getToCart()
   }
 }
 </script>
 
 <style lang="scss" scoped>
+.swal2-container{
+  max-width: 100px; /* 更改寬度，根據需要調整 */
+  max-height: 100px; /* 更改高度，根據需要調整 */
+}
 #load {
   position:absolute;
   width:600px;

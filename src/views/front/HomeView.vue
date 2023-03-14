@@ -76,17 +76,18 @@
       <div class="row">
         <div class="col-lg-3" v-for="product in top8" :key="product.id+'top10'">
           <div class="cursor-pointer">
-            <div class="card border-0 rounded-0 mb-4 card-overlay" @click="()=>returnRouterSingle(product.id)">
+            <div
+              class="card border-0 rounded-0 mb-4 card-overlay"
+              @click="()=>returnRouterSingle(product.id)"
+            >
               <div class="position-relative">
                   <img :src="product.imageUrl" class="card-img-top rounded-0" alt="貓咪產品">
-                  <div class="overlay d-flex justify-content-center align-items-end">
-                      <button
-                          type="button"
-                          class="mb-0 text-white m-0 p-2 bg-primary w-100 fs-5 d-flex justify-content-center opacity-75 btn btn-sm btn-primary btn-hover"
-                          @click.prevent="() => addToCart(product.id)"
-                      >
-                          加入購物車
-                      </button>
+                  <div class="overlay d-flex justify-content-center">
+                    <p
+                      class="mb-0 text-white m-0 p-2 w-100 fs-3 d-flex justify-content-center"
+                    >
+                        查看更多
+                    </p>
                   </div>
               </div>
               <div class="card-body text-center">

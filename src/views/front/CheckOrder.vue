@@ -147,7 +147,7 @@ export default {
         message: ''
       },
       orderId: '',
-      isLoading: true
+      isLoading: false
     }
   },
   components: {

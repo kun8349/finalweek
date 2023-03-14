@@ -8,7 +8,8 @@
                             <img src="../assets/logo-removebg-preview.png" alt="logo">
                         </li>
                         <li class="nav-item me-2 fs-4">
-                            <router-link
+                          <!-- 一直找不到/admin/product路由 -->
+                          <router-link
                                 class="nav-link text-white nav-hover"
                                 to="/admin/product"
                                 :class="{'nav-link-active': this.changeColor === '產品列表'}"
