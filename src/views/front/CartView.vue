@@ -146,6 +146,7 @@
                       type="button"
                       class="btn btn-outline-primary"
                       @click="()=>getCoupon(code)"
+                      :disabled = "couponPrice != 0"
                     >
                       優惠碼
                     </button>

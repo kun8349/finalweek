@@ -7,6 +7,8 @@ import 'vue3-loading-overlay/dist/vue3-loading-overlay.css'
 import 'swiper/swiper-bundle.css'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import CKEditor from '@ckeditor/ckeditor5-vue'
+import AOS from 'aos'
+import 'aos/dist/aos.css'
 
 import './assets/all.scss'
 import App from './App.vue'
@@ -28,3 +30,4 @@ app.component('AppSwiper', Swiper)
 app.component('swiper-slide', SwiperSlide)
 app.component('AppLoading', Loading)
 app.mount('#app')
+AOS.init()
