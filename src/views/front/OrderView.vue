@@ -41,7 +41,7 @@
                                         </tr>
                                         <tr class="">
                                             <td class="pb-5">成立時間</td>
-                                            <td class="pb-5">{{ OrderData.create_at }}</td>
+                                            <td class="pb-5">{{  }}{{ $filters.date(OrderData.create_at) }}</td>
                                         </tr>
                                         <tr class="">
                                             <td class="pb-5">姓名</td>

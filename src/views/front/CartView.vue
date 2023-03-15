@@ -113,18 +113,35 @@
               <div class="mt-10 d-flex align-items-end justify-content-between">
                   <div class="d-flex flex-column justify-content-between">
                     <div class="d-flex mt-10">
-                      <label
-                      for="exampleFormControlInput1"
-                      class="form-label"
-                    >
-                    </label>
-                    <input
-                      type="text"
-                      class="form-control me-2"
-                      id="exampleFormControlInput1"
-                      style="width: 100px;"
-                      v-model="code"
-                    >
+                      <template v-if="couponPrice == 0">
+                        <label
+                        for="exampleFormControlInput1"
+                        class="form-label"
+                        >
+                        </label>
+                        <input
+                          type="text"
+                          class="form-control me-2"
+                          id="exampleFormControlInput1"
+                          style="width: 100px;"
+                          v-model="code"
+                        >
+                      </template>
+                      <template v-else>
+                        <label
+                        for="exampleFormControlInput1"
+                        class="form-label"
+                        >
+                        </label>
+                        <input
+                          type="text"
+                          class="form-control me-2"
+                          id="exampleFormControlInput1"
+                          style="width: 100px;"
+                          value="已折扣"
+                          disabled
+                        >
+                      </template>
                     <button
                       type="button"
                       class="btn btn-outline-primary"

@@ -1,4 +1,9 @@
 <template>
+    <div class="bg-info">
+      <div class="container">
+        <p class="py-3 ms-6 mb-0 text-white">感恩回饋！全館8折！立即輸入：『&nbsp;&nbsp;8888&nbsp;&nbsp;』</p>
+      </div>
+    </div>
     <header class="home bg-primary">
     <div class="container py-3">
       <nav class="navbar navbar-expand-lg bg-body-tertiary flex-wrap">

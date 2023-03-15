@@ -105,7 +105,6 @@ const cartStore = defineStore('cart', {
           parseInt(price)
           this.couponPrice = Math.floor(price)
           this.orderPrice = this.total - this.couponPrice
-          this.code = ''
           Swal.fire({
             position: 'top-end',
             icon: 'success',
