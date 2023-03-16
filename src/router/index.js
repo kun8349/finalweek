@@ -81,7 +81,7 @@ const routes = [
       },
       {
         path: 'blogs',
-        name: '後台產品列表',
+        name: '後台部落格',
         component: () => import('../views/admin/BlogAdmin.vue')
       }
     ]

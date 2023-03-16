@@ -128,7 +128,7 @@ export default {
     // token 設置在 headers 內，是 axios 包裝好的語法
     this.$http.defaults.headers.common.Authorization = token
     this.check()
-    // this.$router.push('/admin/product')
+    this.$router.push('/admin/product')
   }
 }
 </script>

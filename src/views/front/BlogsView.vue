@@ -17,7 +17,8 @@
             <h2 class="text-white fw-bold fs-1 d-flex align-items-center justify-content-center">部落格</h2>
         </div>
     </div>
-    <div class="row justify-content-center mt-20">
+    <div class="container">
+      <div class="row justify-content-center mt-20">
         <div
             class="col-8 mb-5"
             v-for="blog in data"
@@ -42,6 +43,7 @@
     </div>
     <div class="d-flex justify-content-center">
         <Pagination :pages="pages" @emit-pages="getBlogs"></Pagination>
+    </div>
     </div>
 </template>
 
