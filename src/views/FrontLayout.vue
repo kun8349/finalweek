@@ -84,16 +84,19 @@
       <div class="collapse navbar-collapse ms-auto d-lg-none" id="navbarSupportedContent">
             <ul class="navbar-nav mb-lg-0">
               <li class="nav-item">
-                <router-link class="nav-link fs-4 text-white border-bottom border-white border-2" to="/"><span>首頁</span></router-link>
+                <router-link class="nav-link fs-4 text-white border-bottom border-white border-2" to="/">
+                  <span>首頁</span>
+                </router-link>
               </li>
               <li class="nav-item">
-                <router-link class="nav-link fs-4 text-white border-bottom border-white border-2" to="/product"><span>所有商品</span></router-link>
+                <router-link class="nav-link fs-4 text-white border-bottom border-white border-2" to="/product">
+                  <span>所有商品</span>
+                </router-link>
               </li>
               <li class="nav-item">
-                <router-link class="nav-link fs-4 text-white border-bottom border-white border-2" to=""><span>狗狗專區</span></router-link>
-              </li>
-              <li class="nav-item">
-                <router-link class="nav-link fs-4 text-white border-bottom border-white border-2" to=""><span>貓咪專區</span></router-link>
+                <router-link class="nav-link fs-4 text-white border-bottom border-white border-2" to="/blogs">
+                  <span>部落格</span>
+                </router-link>
               </li>
             </ul>
       </div>

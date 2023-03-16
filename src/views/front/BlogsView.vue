@@ -34,7 +34,7 @@
                         <div class="card-body">
                             <h5 class="card-title">{{ blog.title }}</h5>
                             <p class="card-text">{{ blog.description.slice(0, 100) + '...' }}</p>
-                            <p class="card-text"><small class="text-muted">more...</small></p>
+                            <p class="card-text text-end"><small class="text-muted">more</small></p>
                         </div>
                     </div>
                 </div>

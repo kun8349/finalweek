@@ -32,7 +32,7 @@
             data-aos-duration="2000"
           >
             <div class="text-center p-8">
-              <span class="material-symbols-outlined" style="font-size: 60px;">
+              <span class="material-symbols-outlined" style="font-size: 100px;">
                 local_shipping
               </span>
               <h3 class="mt-3">快速出貨</h3>
@@ -46,7 +46,7 @@
             data-aos-duration="2000"
           >
             <div class="text-center p-8">
-              <span class="material-symbols-outlined" style="font-size: 60px;">
+              <span class="material-symbols-outlined" style="font-size: 100px;">
                 paid
               </span>
               <h3 class="mt-3">台灣現貨</h3>
@@ -62,7 +62,7 @@
             data-aos-duration="2000"
           >
             <div class="text-center p-8">
-              <span class="material-symbols-outlined" style="font-size: 60px;">
+              <span class="material-symbols-outlined" style="font-size: 100px;">
                 videocam
               </span>
               <h3 class="mt-3">全程錄影</h3>
@@ -78,7 +78,7 @@
             data-aos-duration="2000"
           >
             <div class="text-center p-8">
-              <span class="material-symbols-outlined" style="font-size: 60px;">
+              <span class="material-symbols-outlined" style="font-size: 100px;">
                 receipt_long
               </span>
               <h3 class="mt-3">開立發票</h3>
@@ -145,14 +145,14 @@
         >
           <div class="row">
             <div class="col-lg-4 mb-12">
-              <img class="img-fluid" src="../../assets/幼貓.jfif" alt="新手養貓必看文章">
+              <img class="img-fluid" src="../../assets/幼貓.jfif" alt="新手養貓必看文章" style="height: 100%;">
             </div>
             <div class="col-lg-8 mb-12" style="position: relative;">
               <h3>{{ blogs[1].title }}</h3>
-              <p>
+              <p class="pb-5">
                 {{ blogs[1].description.slice(0, 150) + '...'  }}
               </p>
-              <div class="" style="position: absolute; bottom: 0; right: 12px;">
+              <div class="btn-container-right text-end">
                 <button
                   type="button"
                   class="btn btn-outline-primary btn-lg text-end"
@@ -162,10 +162,13 @@
                 </button>
               </div>
             </div>
+            <div class="col-lg-4 mb-12 d-lg-none">
+              <img class="img-fluid w-100" src="../../assets/貓咪紙箱.jpg" alt="貓咪紙箱文章" style="height: 100%;">
+            </div>
             <div class="col-lg-8" style="position: relative;">
               <h3>{{ blogs[0].title }}</h3>
               <p>{{ blogs[0].description.slice(0, 150) + '...'  }}</p>
-              <div class="" style="position: absolute; bottom: 0;">
+              <div class="btn-container-left text-end text-lg-start">
                 <button
                   type="button"
                   class="btn btn-outline-primary btn-lg"
@@ -175,8 +178,8 @@
                 </button>
               </div>
             </div>
-            <div class="col-lg-4">
-              <img class="img-fluid" src="../../assets/貓咪紙箱.jpg" alt="貓咪紙箱文章">
+            <div class="col-lg-4 d-sm-none d-lg-block">
+              <img class="img-fluid" src="../../assets/貓咪紙箱.jpg" alt="貓咪紙箱文章" style="height: 100%;">
             </div>
           </div>
         </div>
@@ -258,6 +261,20 @@ export default {
 </script>
 
 <style scoped>
+@media (min-width: 1200px) {
+  .btn-container-right {
+    position: absolute;
+    bottom: 0;
+    right: 12px;
+  }
+  .btn-container-left{
+    position: absolute;
+    bottom: 0;
+  }
+  .text-lg-start{
+    text-align: left;
+  }
+}
 .banner{
     background-image: url(../../assets/bg-xl.png);
     background-position: top;

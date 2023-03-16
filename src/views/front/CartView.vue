@@ -1,6 +1,6 @@
 <template>
     <div>
-      <AppLoading v-model:active="isLoading">
+      <AppLoading v-model:active="isToLoading">
           <div id="load">
             <div>G</div>
             <div>N</div>
@@ -30,19 +30,20 @@
             </div>
             <div class="p-4 pb-30">
               <template v-if="cart.length !== 0">
-                <table class="table align-middle mb-0">
+                <div class="table-responsive">
+                  <table class="table align-middle mb-0">
                     <thead>
                         <tr>
-                            <th width="50px" class="text-center">刪除</th>
+                            <th width="50px" class="">刪除</th>
                             <th scope="col" class="text-center">品名</th>
                             <th scope="col" width="100px">單價</th>
-                            <th scope="col" width="220px"  class="text-center">數量</th>
+                            <th scope="col" width="220px"  class="">數量</th>
                             <th class="text-end" width="150px">小計</th>
                         </tr>
                     </thead>
                     <tbody class="">
                         <tr v-for="cartProduct in cart" :key="cartProduct.id">
-                            <td>
+                            <td class="">
                                 <button
                                     type="button"
                                     class="btn btn-sm btn-outline-danger d-flex justify-content-center align-items-center"
@@ -60,8 +61,8 @@
                             <td class="fs-5">
                               {{ cartProduct.product.price }}
                             </td>
-                            <td class="d-flex justify-content-center">
-                              <div class="input-group w-50" >
+                            <td class="">
+                              <div class="input-group" style="width: 100px;">
                                 <input
                                   v-model="cartProduct.qty"
                                   type="number"
@@ -96,7 +97,8 @@
                           </button>
                         </div>
                     </tbody>
-                </table>
+                  </table>
+                </div>
               </template>
               <template v-else>
                 <div class="text-center py-6">
@@ -112,44 +114,44 @@
               </template>
               <div class="mt-10 d-flex align-items-end justify-content-between">
                   <div class="d-flex flex-column justify-content-between">
-                    <div class="d-flex mt-10">
-                      <template v-if="couponPrice == 0">
-                        <label
-                        for="exampleFormControlInput1"
-                        class="form-label"
-                        >
-                        </label>
-                        <input
-                          type="text"
-                          class="form-control me-2"
-                          id="exampleFormControlInput1"
-                          style="width: 100px;"
-                          v-model="code"
-                        >
-                      </template>
-                      <template v-else>
-                        <label
-                        for="exampleFormControlInput1"
-                        class="form-label"
-                        >
-                        </label>
-                        <input
-                          type="text"
-                          class="form-control me-2"
-                          id="exampleFormControlInput1"
-                          style="width: 100px;"
-                          value="已折扣"
-                          disabled
-                        >
-                      </template>
-                    <button
-                      type="button"
-                      class="btn btn-outline-primary"
-                      @click="()=>getCoupon(code)"
-                      :disabled = "couponPrice != 0"
-                    >
-                      優惠碼
-                    </button>
+                    <div class="d-lg-flex mt-10">
+                        <template v-if="couponPrice == 0">
+                          <label
+                          for="exampleFormControlInput1"
+                          class="form-label"
+                          >
+                          </label>
+                          <input
+                            type="text"
+                            class="form-control me-2"
+                            id="exampleFormControlInput1"
+                            style="width: 100px;"
+                            v-model="code"
+                          >
+                        </template>
+                        <template v-else>
+                          <label
+                          for="exampleFormControlInput1"
+                          class="form-label"
+                          >
+                          </label>
+                          <input
+                            type="text"
+                            class="form-control me-2"
+                            id="exampleFormControlInput1"
+                            style="width: 100px;"
+                            value="已折扣"
+                            disabled
+                          >
+                        </template>
+                      <button
+                        type="button"
+                        class="btn btn-outline-primary btn-lg mt-lg-0 mt-5"
+                        @click="()=>getCoupon(code)"
+                        :disabled = "couponPrice != 0"
+                      >
+                        優惠碼
+                      </button>
                     </div>
                   </div>
                   <div class="text-end">
@@ -185,7 +187,6 @@ const { VITE_URL, VITE_PATH } = import.meta.env
 export default {
   data () {
     return {
-      isLoading: false,
       data: {
         user: {
           name: '',
@@ -281,7 +282,7 @@ export default {
     ...mapActions(cartStore, ['deleteSingle', 'getToCart', 'getCoupon'])
   },
   computed: {
-    ...mapState(cartStore, ['cart', 'loadingItem', 'total', 'couponPrice'])
+    ...mapState(cartStore, ['cart', 'loadingItem', 'total', 'couponPrice', 'isToLoading'])
   },
   mounted () {
     this.getToCart()
@@ -290,9 +291,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.swal2-container{
-  max-width: 100px; /* 更改寬度，根據需要調整 */
-  max-height: 100px; /* 更改高度，根據需要調整 */
+@media  (min-width: 1200px){
+  .mb-lg-0{
+    margin-top: 0;
+  }
 }
 #load {
   position:absolute;

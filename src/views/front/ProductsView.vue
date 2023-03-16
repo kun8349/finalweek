@@ -15,7 +15,7 @@
     <div class="container">
         <div class="row mt-13">
             <!-- 產品類別 -->
-            <div class="col-3">
+            <div class="col-lg-3">
                 <div class="bg-secondary">
                     <h3 class="mb-0 p-4 fs-5 fw-semibold">產品類型</h3>
                     <ul class="list-unstyled bg-white">
@@ -87,8 +87,10 @@
                 </div>
             </div>
             <!-- 產品渲染 -->
-            <div class="col-9">
-                <h4 class="p-4">所有商品</h4>
+            <div class="col-lg-9">
+                <h4 class="p-4">
+                  {{ changeColor }}
+                </h4>
                 <div class="row">
                     <div class="col-lg-3" v-for="product in products" :key="product.id">
                         <router-link :to="`/product/${product.id}`">
