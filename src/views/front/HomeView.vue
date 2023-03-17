@@ -15,7 +15,7 @@
   <!-- banner -->
   <div class="banner d-flex align-items-center">
     <div class="container opacity-100">
-      <h2 class="text-dark fw-bold fs-1">歡慶開幕，全館免運！</h2>
+      <h2 class="text-dark fw-bold fs-1">用心為您的毛孩<br>打造高品質生活</h2>
       <button type="button" class="btn btn-primary btn-lg mt-2" @click="()=>returnRouterProduct()">立即選購</button>
     </div>
   </div>
